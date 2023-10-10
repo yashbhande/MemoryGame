@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Title of the game -->
+        <h2>Memory Game</h2>
+        <!-- Container for the game board -->
+        <div class="game"></div>
+        <!-- Button to reset the game -->
+        <button class="reset" onclick="window.location.reload();">Reset Game</button>
+    </div>
+
+    <script>
+        // Array of emojis that will be used in the game
+        const emojis = ["😊","😊","😂","😂","❤️","❤️","😍","😍","👌","👌","🙌","🙌","😁","😁","🥵","🥵"];
+
+        // Shuffle the emojis randomly
+        var shuf_emojis = emojis.sort(() => Math.random() - 0.5);
+
+        // Loop through the shuffled emojis and create card elements for each
+        for (var i = 0; i < emojis.length; i++) {
+            let box = document.createElement('div')
+            box.className = 'item'; // Apply a class to the card
+            box.innerHTML = shuf_emojis[i]; // Display the shuffled emoji on the card
+
+            // Add an event listener to each card for when it's clicked
+            box.onclick = function(){
+                this.classList.add('boxOpen'); // Add a class to open the card
+
+                // After a short delay, check if two cards are open
+                setTimeout(function(){
+                    if(document.querySelectorAll('.boxOpen').length > 1){
+                        // If two cards are open, check if they match by comparing their content
+                        if(document.querySelectorAll('.boxOpen')[0].innerHTML == document.querySelectorAll('.boxOpen')[1].innerHTML){
+                            document.querySelectorAll('.boxOpen')[1].classList.add('boxMatch'); // Add a class for matched cards
+                            document.querySelectorAll('.boxOpen')[0].classList.add('boxMatch');
+                            document.querySelectorAll('.boxOpen')[1].classList.remove('boxOpen'); // Remove the open class
+                            document.querySelectorAll('.boxOpen')[0].classList.remove('boxOpen');
+                        
+                            // Check if all cards have been matched (game won)
+                            if(document.querySelectorAll('.boxMatch').length == emojis.length){
+                                alert('You Win!');
+                            }
+                        }
+                        else{
+                            // If the two cards don't match, close them by removing the open class
+                            document.querySelectorAll('.boxOpen').forEach(function(openBox){
+                                openBox.classList.remove('boxOpen');
+                            });
+                        }
+                    }
+                }, 500); // Delay for 500 milliseconds
+            }
+            // Append the card to the game board
+            document.querySelector('.game').appendChild(box);
+        }
+    </script>
+</body>
+</html>
