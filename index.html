@@ -4,6 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
+ <style> 
+/* Reset styles for consistent rendering across different browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Styling for the body of the page */
+body {
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    min-height: 100vh; /* Ensure minimum viewport height */
+    background: #0a3c2f; /* Set background color of the entire page */
+}
+
+/* Styling for the game container */
+.container {
+    position: relative; /* Define a relative positioning context */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    gap: 30px; /* Add spacing between child elements */
+    background: #0d614b; /* Set background color of the container */
+    padding: 40px 60px; /* Add padding (top and bottom, left and right) */
+}
+
+/* Styling for the game title */
+h2 {
+    font-size: 3em; /* Set font size for the title */
+    color: #fff; /* Set text color to white */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 0.1em; /* Adjust letter spacing */
+}
+
+/* Styling for the reset button */
+.reset {
+    padding: 15px 20px; /* Set padding for the button */
+    color: #267c65; /* Set text color for the button */
+    background: #fff; /* Set background color for the button */
+    border: none; /* Remove button border */
+    font-size: 1.5em; /* Set font size for the button */
+    letter-spacing: 0.1em; /* Adjust letter spacing */
+    text-transform: uppercase; /* Convert text to uppercase */
+    cursor: pointer; /* Use a pointer cursor on hover */
+    font-weight: 600; /* Set font weight to bold */
+}
+
+/* Styling for the reset button when focused */
+.reset:focus {
+    color: #fff; /* Set text color to white when focused */
+    background: #267c65; /* Change background color when focused */
+}
+
+/* Styling for the game board */
+.game {
+    width: 430px; /* Set the width of the game board */
+    height: 430px; /* Set the height of the game board */
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow cards to wrap to the next row */
+    gap: 10px; /* Add spacing between cards */
+    transform-style: preserve-3d; /* Preserve 3D transformations for cards */
+    perspective: 500px; /* Set perspective for 3D effect */
+}
+
+/* Styling for individual game cards */
+.item {
+    position: relative; /* Define a relative positioning context */
+    width: 100px; /* Set the width of each card */
+    height: 100px; /* Set the height of each card */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    font-size: 3em; /* Set font size for the emoji */
+    background: #fff; /* Set background color of the card */
+    transform: rotateY(0deg); /* Initialize card rotation */
+    transition: 0.25s; /* Add a smooth transition effect */
+}
+
+/* Styling for open game cards */
+.item.boxOpen {
+    transform: rotateY(0deg); /* Keep the card open */
+}
+
+/* Styling for the back face of game cards */
+.item::after {
+    content: ''; /* Create an empty pseudo-element */
+    position: absolute; /* Position it absolutely within the card */
+    inset: 0; /* Set the pseudo-element to cover the entire card */
+    background: #209d7b; /* Set background color of the back face */
+    transition: 0.25s; /* Add a smooth transition effect */
+    transform: rotateY(0deg); /* Initialize back face rotation */
+    backface-visibility: hidden; /* Hide the back face of cards */
+}
+
+/* Styling for matched game cards */
+.boxOpen::after,
+.boxMatch::after {
+    transform: rotateY(180deg); /* Rotate the back face to reveal the front */
+}
+
+</style>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
